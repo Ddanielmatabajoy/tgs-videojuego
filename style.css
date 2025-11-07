@@ -1,0 +1,244 @@
+/* ================================
+   Estilos generales estilo "Runner" colorido
+   ================================= */
+:root {
+  --bg:#f5f5f5;
+  --text:#2b2b2b;
+  --accent:#2e7d32;
+  --danger:#c62828;
+  --overlay-bg:rgba(0,0,0,0.65);
+  --panel:#ffffff;
+  --pixel-font: 'Courier New', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body {
+  margin:0;
+  font-family: var(--pixel-font);
+  background: var(--bg);
+  color: var(--text);
+  overflow:hidden;
+}
+
+#gameWrapper {
+  width:100%;
+  max-width:960px;
+  margin:0 auto;
+  position:relative;
+  padding-top:20px;
+}
+
+#hud {
+  position:absolute;
+  top:8px;
+  right:12px;
+  font-size:14px;
+  letter-spacing:2px;
+  font-weight:bold;
+  color:#222;
+  z-index:10;
+  text-align:right;
+  text-shadow:0 1px 0 #fff;
+}
+
+#hud .lives {
+  display:block;
+  margin-top:4px;
+  font-size:16px;
+  letter-spacing:4px;
+}
+
+canvas#gameCanvas {
+  background: var(--bg);
+  width:100%;
+  height:320px;
+  display:block;
+  border:0;
+  image-rendering: pixelated;
+  box-shadow:0 0 0 3px #e0e0e0, 0 8px 28px -12px rgba(0,0,0,0.4);
+  border-radius:8px;
+}
+
+/* Overlay de preguntas */
+#questionOverlay {
+  position:fixed;
+  inset:0;
+  background:var(--overlay-bg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  font-size:16px;
+  padding:20px;
+}
+
+#questionOverlay.hidden {
+  opacity:0;
+  pointer-events:none;
+}
+
+#questionPanel {
+  background:var(--panel);
+  color:#222;
+  width:clamp(300px, 70%, 640px);
+  border-radius:14px;
+  padding:26px 28px 30px;
+  box-shadow:0 10px 35px -12px rgba(0,0,0,0.55);
+  position:relative;
+  animation:panelIn .45s ease;
+}
+
+@keyframes panelIn {
+  from { transform:scale(.8) translateY(20px); opacity:0; }
+  to   { transform:scale(1) translateY(0); opacity:1; }
+}
+
+#questionPanel h2 {
+  margin:0 0 14px;
+  font-size:18px;
+  line-height:1.35;
+}
+
+.options {
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:12px;
+}
+
+.options button {
+  font-family:var(--pixel-font);
+  background:#fafafa;
+  border:2px solid #d0d0d0;
+  padding:10px 14px;
+  font-size:14px;
+  text-align:left;
+  cursor:pointer;
+  border-radius:8px;
+  position:relative;
+  transition:.25s;
+}
+
+.options button:hover {
+  background:#fff;
+  border-color:#bdbdbd;
+  transform:translateX(4px);
+}
+
+.options button.correct {
+  background:#c8f7c5;
+  border-color:#2e7d32;
+  color:#1b5e20;
+}
+
+.options button.wrong {
+  background:#ffcdd2;
+  border-color:#c62828;
+  color:#b71c1c;
+}
+
+#feedback {
+  margin-top:14px;
+  font-weight:bold;
+  min-height:22px;
+}
+
+#resumeBtn {
+  margin-top:18px;
+  display:none;
+  background:#2e7d32;
+  color:#fff;
+  border:none;
+  padding:10px 22px;
+  font-size:14px;
+  border-radius:8px;
+  cursor:pointer;
+  letter-spacing:1px;
+  box-shadow:0 4px 14px -6px rgba(0,0,0,0.4);
+}
+
+#resumeBtn:hover {
+  background:#1b5e20;
+}
+
+/* Mensaje Game Over */
+#gameOverPanel {
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--overlay-bg);
+  z-index:120;
+  font-family:var(--pixel-font);
+}
+
+#gameOverPanel.hidden { opacity:0; pointer-events:none; }
+
+#gameOverPanel .inner {
+  background:#ffffff;
+  padding:28px 34px 34px;
+  border-radius:16px;
+  width:clamp(320px, 70%, 560px);
+  text-align:center;
+  box-shadow:0 10px 40px -12px rgba(0,0,0,0.55);
+  animation:panelIn .5s ease;
+}
+
+#gameOverPanel h1 {
+  margin:0 0 6px;
+  font-size:24px;
+  letter-spacing:2px;
+}
+
+#restartBtn {
+  margin-top:18px;
+  background:#2e7d32;
+  color:#fff;
+  border:none;
+  padding:12px 26px;
+  font-size:15px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+  letter-spacing:1px;
+  box-shadow:0 4px 16px -6px rgba(0,0,0,0.45);
+}
+
+#restartBtn:hover {
+  background:#1b5e20;
+}
+
+#instructions {
+  position:absolute;
+  bottom:6px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:12px;
+  letter-spacing:1px;
+  opacity:.7;
+  pointer-events:none;
+  background:#ffffffaa;
+  padding:4px 8px;
+  border-radius:6px;
+}
+
+/* Efecto de daño */
+.flashDamage {
+  animation:flashDamage .6s;
+}
+@keyframes flashDamage {
+  0%,100% { background:var(--bg); }
+  50% { background:#ffe5e5; }
+}
+
+/* Responsive */
+@media (max-width:520px) {
+  #questionPanel h2 { font-size:16px; }
+  .options button { font-size:13px; padding:9px 12px; }
+  #restartBtn { width:100%; }
+}
